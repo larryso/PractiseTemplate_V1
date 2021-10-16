@@ -21,6 +21,6 @@ steps:
       mavenOptions: '-Xmx3072m'
       javaHomeOption: 'JDKVersion'
       jdkArchitectureOption: 'x64'
-      publishJUnitResults: false
+      publishJUnitResults: true
       testResultsFiles: '${{ parameters.workingDirectory }}**/TEST-*.xml'
       goals: 'package'
