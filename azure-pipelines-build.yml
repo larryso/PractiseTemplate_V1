@@ -1,0 +1,31 @@
+parameter:
+  - name: sonar
+    default: false
+
+jobs:
+  - job: build_source_code_backend
+    displayName: Build Source Code backend
+    steps:
+      - task: Docker@2
+        displayName: "Docker login to Docker hub registry"
+        input:
+          containerRegistry: DockerRegistry_Test
+          command: login
+
+      - template: azure-pipelines-build-image.yml
+        parameters:
+          isBuildRequired: ${{ eq(variables['Build.SourceBranchName'], 'main') }}
+          buildTemplate: azure-pipelines-build-test.yml
+          buildTemplateParameters:
+            settings:
+              buildDire: "build/"
+              nexusApplicationId: TEST
+              extractedPath: extracted/
+
+            ${{ if eq(variables['Build.SourceBranchName'], 'main') }}
+              tasks:
+                - junit
+                - sonar
+          buildImageResultPath: extracted/
+          sourcesDir: ""
+          

@@ -1,0 +1,28 @@
+parameters:
+  - name: buildTemplate
+    default: ""
+
+  - name: buildTemplateParameters
+    type: object
+    default:
+      settings:
+        srcDir: src
+
+  - name: isBuildRequired
+    type: boolean
+    default: false
+
+  - name: sourcesDir
+    default "."
+
+steps:
+  - bash: |
+      echo ${{ parameters.buildTemplateParameters.settings.libImageFrom }} > ${{ parameters.sourcesDir }}/layer-info.txt
+    displayName: get Docker Image from layer
+
+  - ${{ if ne(parameters.buildTemplate, '') }}:
+      - template: ${{ parameters.buildTemplate }}
+        parameters:
+          isBuildRequired: true
+          buildTemplateParameters: ${{ parameters.buildTemplateParameters }}
+          workingDirectory: ../project/

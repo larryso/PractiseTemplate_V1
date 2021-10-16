@@ -1,0 +1,27 @@
+parameters:
+  - name: isBuildRequired
+  - name: buildTemplateParameters
+    type: object
+  - name: workingDirectory
+    default: ""
+
+steps:
+  - ? ${{ if containsValue(parameters.buildTemplateParameters.task, 'sonarqube') }}
+    : - task: SonarQubePrepare@4
+        inputs:
+          SonarQube: "larry-sonarqube"
+          scannerMode: "Other"
+        displayName: Prepare SonarQube
+        condition: and(success(), ${{ parameters.isBuildRequired }}
+
+  - task: Maven@3
+    displayName: "Build App"
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: false
+      testResultsFiles: '${{ parameters.workingDirectory }}**/TEST-*.xml'
+      goals: 'package'
