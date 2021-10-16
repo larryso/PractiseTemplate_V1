@@ -21,12 +21,13 @@ jobs:
               buildDire: "build/"
               nexusApplicationId: TEST
               extractedPath: extracted/
+              libImageFrom: openJDK
 
             ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
               tasks:
                 - junit
                 - sonar
 #          buildImageResultPath: extracted/
-          libImageFrom: openJDK
+
           sourcesDir: ""
           
