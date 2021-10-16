@@ -26,6 +26,6 @@ jobs:
               tasks:
                 - junit
                 - sonar
-          buildImageResultPath: extracted/
+#          buildImageResultPath: extracted/
           sourcesDir: ""
           
