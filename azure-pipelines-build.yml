@@ -1,4 +1,4 @@
-parameter:
+parameters:
   - name: sonar
     default: false
 
@@ -8,7 +8,7 @@ jobs:
     steps:
       - task: Docker@2
         displayName: "Docker login to Docker hub registry"
-        input:
+        inputs:
           containerRegistry: DockerRegistry_Test
           command: login
 
