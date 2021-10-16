@@ -22,7 +22,7 @@ jobs:
               nexusApplicationId: TEST
               extractedPath: extracted/
 
-            ${{ if eq(variables['Build.SourceBranchName'], 'main') }}
+            ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
               tasks:
                 - junit
                 - sonar
