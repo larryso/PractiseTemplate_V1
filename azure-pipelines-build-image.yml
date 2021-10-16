@@ -16,9 +16,9 @@ parameters:
     default: "."
 
 steps:
-  - bash: |
-      echo ${{ parameters.buildTemplateParameters.settings.libImageFrom }} > ${{ parameters.sourcesDir }}/layer-info.txt
-    displayName: get Docker Image from layer
+#  - bash: |
+#      echo ${{ parameters.buildTemplateParameters.settings.libImageFrom }} > ${{ parameters.sourcesDir }}/layer-info.txt
+#    displayName: get Docker Image from layer
 
   - ${{ if ne(parameters.buildTemplate, '') }}:
       - template: ${{ parameters.buildTemplate }}
