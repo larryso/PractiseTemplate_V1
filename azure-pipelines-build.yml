@@ -27,5 +27,6 @@ jobs:
                 - junit
                 - sonar
 #          buildImageResultPath: extracted/
+          libImageFrom: openJDK
           sourcesDir: ""
           
